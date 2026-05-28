@@ -163,16 +163,16 @@
 
   <div id="gate">
     <div class="lockheart">💌</div>
-    <div class="display" style="font-size:30px;font-weight:700">hi, you 🩷</div>
-    <div class="sub" style="max-width:300px">I made you a little something.<br>Enter our date to unlock it 🔒</div>
-    <input id="gpass" inputmode="numeric" autocomplete="off" placeholder="MM / DD / YY" />
-    <button class="btn" id="gbtn" style="max-width:280px">Unlock 💗</button>
-    <div class="gmsg" id="gmsg">hint: our anniversary 🩷 &nbsp;·&nbsp; MM/DD/YY</div>
+    <div class="display" style="font-size:30px;font-weight:700">a little something 🩷</div>
+    <div class="sub" style="max-width:300px">made with love.<br>pick the date to unlock it 🔒</div>
+    <input id="gpass" type="date" />
+    <button class="btn" id="gbtn" style="max-width:280px">unlock 💗</button>
+    <div class="gmsg" id="gmsg">hint: our anniversary 🩷 &nbsp;·&nbsp; the day it all started</div>
   </div>
 </div>
 
 <script>
-const ENC = {"s":"M0hlTYia4gJMwgQAadfEYA==","i":"xUqMdV95tnwq6Hz/","c":"8swoyheHL7gta6sAUUxA9fAd/ZRsE6bueXeOpO/v/XtWKS4SRbDiJ34/cZ5iyDspL2IolO7N9fjrEumm+HTb4baTnnAhWo8GLwu7mxcVUYJCgnlZ3lVKPkFWwSFsgF6tiyd7a5xfZZw/RnZV0m64WlnuWCIKyxiwWERayZT3UeN+YpCAjndpoUB8Di5Z2NCc6hY5QissmOX22sxVarwd32vXVb6I5sdUNZCbwCYfVjHlLQm8vYyNOGUEI+a3dPHpUOzWq5Mkqq9r9wN+5NNQriiDjsD//FAA3li8hUv3G6GoFpWNhRYH0azVa1l3pfUxPQkYFd/ZohPJwtJzNTiL1mck97ysigPsukriWDai9MeH/r4XmZsd12XR2RJ/iy8wo4VOvoa7mPYY2U54E1T8uiQY/1Ip9leNy6Nd6eO0773viUhVDSxNNX6JlermOQ6Iydm5BZ0gDpYZqbD9fUQnSis9uFTcPbYb7MmVq66+emi0o2j++Au4qgPF4VxXVFUpVWgt9XkWquKh2EBjdBzGewua5cIP8Cdrjanxx5ExZdNpdClNP/RLxNLwZslP0PRipqSXtCICd7h8UBhBIZzu66sQXNlkbUM4PyQZCdKo3kNSWTW0KJrLRYDnkPJ9y2wUh6mxy6DEP7e3IeTI5DiynqKTN6RWj7eyjFveyoMWF4X0V8xusYcC2Q0SrC2nHiUCNmtDacWfX1zhhCdNGtpXDCTcJHUH/2PKueEWW73CxkTo5KOdL1GMWKP8NR9+nRVcCW3bGe1muCAJZ24S+llTFWKBDvNmjssY0jPOjf9FiIcBk/XPgV35HoYa6v/KuJ7oJ1tySiHilxB17Dv2DD6NJUVzzN/IwNnvo6yn75pzN+eW48pjGKZM+4kO0GtO6zsbkZaY9+uqchZIP9vciNtp3+atlgbLYk5BUdzzrkh17/efYy5pvJWJH5dQB9/cnvMfJwcqJS6wM2wcd5CJ/gpfDNi4JIq+J9qusVAUIlmGuhZKU3U2vVsv9hXkadaD5zwf6suFI3Rj897rfY8qMTOFkbu6mGb6aDSBcwxEuRtLga6qckb/rP3bzPL5drckDbSH0ciyfoD7ysguzeTJxFD//lme8EvdV/y5VucdbqiLrfew/5BXZSFR2EI3uRIjPW4OKbXavuPa2gn8sjSAi4tPLurqEc53p3r915bWSbOMUboQtAW7Pk509T1y68Uw0NTcfpZw5iJRlujsZuKe7S3Hevt7g7rDmZ4WsoeMMZh6DQRhEhs8c3xi47Ppg8yJLNcbGbDIAMRWRP5Arpa4vrdSKXd1WXLP5OLtfYOpyyNRzyI9y6SDeKoEp9R3mNAsXmDDiRuhGrWfd21u9LKv+RLUQyeSTTIo130iPENThHqOtIsScqRaotC77CWEyohaV2KDUXn+FmeDFBEBOX6QWI6y77/iBma9vDkPPdjkItmMNlERLH4Yi4F8vW/2hcKJHJbqjBCt2YdljqUE1XwkLpFhhGyNd3uO6thoqpXb9U0vS/mM1xr0xial7Ov1Iq1mMoEvbPq4XObuchfLgAnPpuCZ6A162CtnNRsxaEESz0bYeuJM23TV9mYuO3pVV2YnpsgpgYkBby/4mwLHyCDRLEkUZqfFSRj+cBgalsKVrfqrRz/8Qiiam8+IxDR9OuDCLcBIcx5BOSyxJYqbArJXQOhq4moGSc78+5HrFazY9JQNnZAQO26SmPJfVjprQJyeUhZucQK8TQCN0Zl0/fKfjh/8bBQmPYYbsoz/zFKJEWsoFptulWAsbpvrNSdKfCh+NO5Hey8cRS0/R3seKSpo37MTnhPm+bNSQdPS0iFms5qRCnL2AZR5GyVfm5xHu7YmT+qULD1mdpogwHbZbpsea9QiDvCCvbN0VbEy8YE+GVxykLoAvXKC0nszUas1KQfGxInCQSxFhzANB8aTXgNrEqDyoHu9okDQHAExElevCo4UX5bMrEdVF4H5aLtyP3/+cuicXcG1CgnzegyQNWdm+ekjSMjsm+NkGFP3oUodB3o5T5149vP3iOYJq8zg6+8pWrbD46n62U9fFLv6G718q60jPUOIRUmPcnm7XUxjWWwIMw2snz+AZJ/htb3Bhe0ROaU/kRSK0Qr/Kz2IGF75HErbUYJYfea8ThmcSnVVOL4gYtLxADMTBCBXeBeoGI4Jx7cCxvhozBN3CrbOdUZct1Vb7PwXynwm+IFESMZ2ONYEYGrzdhX8naLdJGiyIPbRxi2fulTob2pZNfxvE8hZAcrKymHydPmPUWmOHDr34T/PfEqEblfyvFMFy2yVR3/8o1weIF645FwWu1ONoCO8dQTLFNB3iyfwKiLvpMgULgrC2MvnNQQB46dL6cEDPQ1Uq05e/WjNBZm7jW5owcaVzsG6whYoL38H6gViJfO93qR3qP9tNA1AopdpFLWc3+oqmTIB/WjJMaF9tj+z4w6ObNwuQ7bVEnaApDuBgiEcAfnWA/uBwlcMFDUVgpmjfzSk+ejfADevoT6f71/FDgx2+Ymr3QLuxNT8v3rbRDnes38gI/OjXCXI2lL/0rKc2vH1tnIRRD0DuS+qvnmIfDUCakxA89ESbDC35QJB76hldhvrV8IbNtFYKTovqkEixi9EW08vrb62o+vNE80mJn5RLggkODfGgkFHn6k6N57JV3BhpG4PR83MrnLjjS/pnQ5KiqSo+dyB9FEqyv7tXEsJo+thp3m7xnPuyMO6MIMLOnzb58mbuLi0iFFuoJZfGOlNz2B03dKMibuv6rQygVYJ9PIi6/mP7tUmmCVVz+VIfS00h0INcqNMf1sv1KPMFNnjQ+z9W4Avr+p1idiXuzwp6/nWZq3D4A1PS16q/P2wwu68t6vbU/vNHc/tJeALox3bVf2v61wGzOL3OW8bA68ySi6lcdIE2jVaRHKPFoAifWo85Wwqv/+scSkkelswN+Ew3lwJYiFo8r2/f1unvNtvdlzk8ZX6tdzfxiAvvZNi5iaYbpAV6GUa17+NaPRJFOd4Dy2wuEzv4MZVSXSHhEiUjRwC+3AUh2moom1AJoT5KSt8+liSsDINUFOf6aS7xJlyOivYpaFCcYrGmZnUTulwc18dLrGjkDv2QaEwSZyEnYs2zZ06jp0W1rvqCCPvdhFTVfzJg5HSXnZM69z2heZzR/FqjoLKMbGB6bOl/JwgCm+UcJz1q6FwZ/cbAsIAD/KFQFt+4LIvmnnQ/eFlZrDk6wyf/kHK0C5eu7/RPNV+UGNT+OrdaPE9JOPEF2y14QCNY0ZzDmeI55AkbjFgWKcthkM2yuEKmiWkf+A3kXooKTlub4JNI6e8RkmydVmnx4Mf4TWWpeFnzVGHTxLXBXR2KmCZzw3WpYpXGFomNIlhOkOU1NNd5MOUOQczEbpeUtnsGWJwQTy9/qEaCrNqsXb8DA+VyLXWxvOONJngkKMtJVNY0iEuLNz3WECcVW+ZB6JfuyhyEHSSqEn9M9U6p8Vmkx8F7OkH9dLkpuQxiknYIzHveQwcm3zYwMWTiuZd/LmmD83LGlXMog3cSgdzqlbiGLsZybYKD19hC5JAJTgb+0WiKKgHDs9Gl/hs4YDRGd+/VWk5VOOd7CUzyRJA40lt/hU5ij+SJxIhTrqM3WjTe4vfnnOGLXYbUQOuOFjgC7qYk5+o3oQTQT/aKnQmIdKfN2l4KsVEkWfBfJSgdKIugKogjRoIlvJG9/rHkCNDsRmh6rrRETscZcdsaQ8kwJjS0cBJsEv3dBUc25FW5pMYWk8SYylvmJeYffgTp1GPmqiVL+f1oHFac05nQAghdIhI0tZqHNM8TByPemK4bGfH7JA6Zq6DgPk0tDIJy4vDCzIOhxLuVjaJFDKUPhckW3z5VNow1WxEfiKl0/L9TaJ7GFRyIb4GFEqwedDofmJbPsFmXoaUkd85ly8/dmLnGU9B7qRS4/2kKytU2h8boTAoWWT742qAu1QOItSQfp4tWoGqGzF6TXH0QoyDYw7PJQJ5ElfQav0+dMNmacOXZ4l5Tgc5J6i0cSd+w91y8TDKUynL++hOiqLMB+zmxMQyrMVL8UBRvgzgHJvtGdl5rnlqcp+v0i+Zz9OKxgONk4rmULMkOiG+E9hyCRVmxsSIIb21Txp691sxTXO6JL/h9KW0weDcpgie5u5c0NMcfJ6ChiG8WYO2wTzdYd0SLrGWtIFCXJNGiXftrDz0C+/et4boE7Yygh35ALSlKvfeUyYwitiWKPqHLAN9YpKAGWUSNI71TcLClJNZrzuGPr/R8ZdoAPB2UOYV9Cx8EURFo5MYEUa5aZNAp4cbmc+kZfdEWq5DH69Fj7N3vbzNcprpG8nqxSd94XlfsQTKVMaZ19V9ZuoxgRr1+bsiqv+MtstG1dgVzi+/mQN/X8sRxB6wWz/5PZNNFTEcVZMYhxI54fUhdLgzj6InLzoXNSX/Aaz75Ow/Z1ZeaZ30g0bnFOVSf2KYEDVGm0mhC+hC4gtuc82uIwwAsE8ml2dejPtlO1vhsEr3iZIxZN80VQ==","it":150000};
+const ENC = {"s":"U00gHqo/1pajleD7NjSsrg==","i":"F3HojI9m1HIWM078","c":"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","it":150000};
 let ME="me", FAYE="you";  // real names live in the encrypted payload
 let DATA=null, T,t,L,C,TB,Q,mePct,fayePct,pages,emojiMult,respMe,respFaye, STAT_SCENES, QUIZ, GUESS, SCENES=[];
 
@@ -224,141 +224,142 @@ function buildContent(){
 deriveVars();
 STAT_SCENES=[
 {th:0,html:`<div class="bgwrap" data-f="🩷💕✨🎀"></div>
-  <div class="eyebrow rise">just for you</div>
-  <div class="names rise">us,<br>wrapped <span class="hb">🩷</span></div>
-  <div class="hand rise" style="font-size:30px;line-height:1.1;margin-top:6px">${fmtMonth(DATA.meta.first_date.slice(0,7))} ’${DATA.meta.first_date.slice(2,4)} → ${fmtMonth(DATA.meta.last_date.slice(0,7))} ’${DATA.meta.last_date.slice(2,4)}</div>
-  <div class="sub rise" style="margin-top:8px">everything we said to each other, by the numbers 💌</div>
+  <div class="eyebrow rise">made with love</div>
+  <div class="names rise" style="font-size:clamp(30px,9.5vw,44px)">${FAYE} &amp; ${ME},<br>wrapped <span class="hb">🩷</span></div>
+  <div class="hand rise" style="font-size:30px;line-height:1.1;margin-top:6px">${fmtMonth(DATA.meta.first_date.slice(0,7))} ’${DATA.meta.first_date.slice(2,4)} to ${fmtMonth(DATA.meta.last_date.slice(0,7))} ’${DATA.meta.last_date.slice(2,4)}</div>
+  <div class="sub rise" style="margin-top:8px">everything ${FAYE} &amp; ${ME} said to each other, by the numbers 💌</div>
   <div class="tiny rise">tap the right side to keep going →</div>`},
 
-{th:1,html:`<div class="eyebrow rise">since "Hi", we've sent</div>
+{th:1,html:`<div class="eyebrow rise">since that first "Hi", they've sent</div>
   <div class="huge rise"><span data-c="${T.messages}">0</span></div>
   <div class="big rise accent">texts</div>
-  <div class="sub rise">in <b>${DATA.meta.span_days} days</b> — and we talked on <b>${DATA.meta.active_days}</b> of them. that's <b>${T.avg_per_active_day}</b> a day 😮‍💨</div>`},
+  <div class="sub rise">across <b>${DATA.meta.span_days} days</b>, talking on <b>${DATA.meta.active_days}</b> of them. about <b>${T.avg_per_active_day}</b> a day 😮‍💨</div>`},
 
-{th:2,html:`<div class="eyebrow rise">that's about</div>
+{th:2,html:`<div class="eyebrow rise">that adds up to about</div>
   <div class="huge rise"><span data-c="${T.words_total}">0</span></div>
   <div class="big rise accent">words 📖</div>
-  <div class="sub rise">basically a <b>${pages}-page novel</b>. we wrote a whole book about us.</div>`},
+  <div class="sub rise">basically a <b>${pages}-page novel</b>. ${FAYE} &amp; ${ME} wrote a whole book about them 🥰</div>`},
 
-{th:3,html:`<div class="eyebrow rise">from strangers to… this</div>
-  <div class="headline rise">watch us fall 📈</div>
+{th:3,html:`<div class="eyebrow rise">from strangers to this</div>
+  <div class="headline rise">watch them fall 📈</div>
   <div class="rise" style="width:100%">${months()}</div>
-  <div class="sub rise"><b>17</b> texts in August → <b>${fmt(t.by_month[t.by_month.length-1][1])}</b> this month. someone caught feelings 🥰</div>`},
+  <div class="sub rise"><b>17</b> texts in August grew to <b>${fmt(t.by_month[t.by_month.length-1][1])}</b> this month. somebody caught feelings 🥰</div>`},
 
-{th:4,html:`<div class="eyebrow rise">so… who texts more?</div>
+{th:4,html:`<div class="eyebrow rise">so who texts more?</div>
   <div class="splitbar rise" id="split">
-    <div style="background:#ff177d;color:#fff" data-w="${mePct}">me ${mePct}%</div>
-    <div style="background:#fff;color:#ff177d" data-w="${fayePct}">${fayePct}% you</div>
+    <div style="background:#ff177d;color:#fff" data-w="${fayePct}">${FAYE} ${fayePct}%</div>
+    <div style="background:#fff;color:#ff177d" data-w="${mePct}">${mePct}% ${ME}</div>
   </div>
-  <div class="row rise"><div class="col"><div class="label">me</div><div class="big">${fmt(T.me)}</div></div>
-  <div class="col" style="text-align:right"><div class="label">you</div><div class="big">${fmt(T.faye)}</div></div></div>
+  <div class="row rise"><div class="col"><div class="label">${FAYE}</div><div class="big">${fmt(T.faye)}</div></div>
+  <div class="col" style="text-align:right"><div class="label">${ME}</div><div class="big">${fmt(T.me)}</div></div></div>
   <div class="sub rise">a near-perfect tie. equally obsessed 🤝💗</div>`},
 
 {th:5,html:`<div class="bgwrap" data-f="💘"></div>
   <div class="eyebrow rise">it started with one word</div>
   <div class="huge rise pop">"Hi"</div>
-  <div class="sub rise">you · ${fmtDate(DATA.snippets.first_message.date.split(' ')[0])} · 12:46&nbsp;AM</div>
-  <div class="sub rise">best "hi" of my life, clearly 💘</div>`},
+  <div class="sub rise">${FAYE} · ${fmtDate(DATA.snippets.first_message.date.split(' ')[0])} · 12:46&nbsp;AM</div>
+  <div class="sub rise">best "Hi" in history, clearly 💘</div>`},
 
-{th:6,html:`<div class="eyebrow rise">our most unhinged day</div>
+{th:6,html:`<div class="eyebrow rise">their most unhinged day</div>
   <div class="big rise">${fmtDate(t.busiest_day)}</div>
   <div class="huge rise accent"><span data-c="${t.busiest_day_n}">0</span></div>
   <div class="big rise">texts. one day.</div>
-  <div class="sub rise">what were we even doing 😂📱</div>`},
+  <div class="sub rise">what were they even doing 😂📱</div>`},
 
-{th:3,html:`<div class="eyebrow rise">our streak 🔥</div>
+{th:3,html:`<div class="eyebrow rise">their current streak 🔥</div>
   <div class="huge rise"><span data-c="${t.best_streak}">0</span></div>
   <div class="big rise accent">days in a row</div>
-  <div class="sub rise">not one missed day since <b>${fmtDate(t.streak_range[0])}</b>. and we're <b>still going</b> 🥹</div>`},
+  <div class="sub rise">not one missed day since <b>${fmtDate(t.streak_range[0])}</b>, and it's <b>still going</b> 🥹</div>`},
 
-{th:2,html:`<div class="eyebrow rise">you're an emoji machine 💅</div>
-  <div class="row rise" style="align-items:flex-end"><div class="col"><div class="label">you</div><div class="big">${fmt(DATA.faye.emoji_total)}</div></div>
-  <div class="col" style="text-align:right"><div class="label">me</div><div class="big">${fmt(DATA.me.emoji_total)}</div></div></div>
-  <div class="sub rise">you out-emoji'd me <b>${emojiMult}×</b>. our favorites:</div>
+{th:2,html:`<div class="eyebrow rise">${FAYE} is an emoji machine 💅</div>
+  <div class="row rise" style="align-items:flex-end"><div class="col"><div class="label">${FAYE}</div><div class="big">${fmt(DATA.faye.emoji_total)}</div></div>
+  <div class="col" style="text-align:right"><div class="label">${ME}</div><div class="big">${fmt(DATA.me.emoji_total)}</div></div></div>
+  <div class="sub rise">${FAYE} sent <b>${emojiMult}×</b> more emojis than ${ME}. their favorites:</div>
   ${chips(L.combined_top_emojis,6)}`},
 
 {th:6,html:`<div class="bgwrap" data-f="😭😂🤣"></div>
-  <div class="eyebrow rise">we crack each other up</div>
+  <div class="eyebrow rise">they crack each other up</div>
   <div class="huge rise"><span data-c="${DATA.laughs.total}">0</span></div>
   <div class="big rise accent">shared laughs</div>
-  <div class="sub rise">you laughed at <b>${fmt(TB.faye_laughed)}</b> of my texts — i only managed <b>${fmt(TB.me_laughed)}</b> of yours. you think i'm hilarious 😎</div>`},
+  <div class="sub rise">${FAYE} laughed at <b>${fmt(TB.faye_laughed)}</b> of ${ME}'s texts, and ${ME} laughed at <b>${fmt(TB.me_laughed)}</b> of ${FAYE}'s. nonstop giggles 🥹</div>`},
 
 {th:4,html:`<div class="bgwrap" data-f="❤️🩷"></div>
   <div class="eyebrow rise">tap-back love 💞</div>
   <div class="tiles rise">
-    <div class="tile"><b>${fmt(TB.me_loved)}</b><span>of your texts i hit with ❤️</span></div>
-    <div class="tile"><b>${fmt(TB.faye_loved)}</b><span>of mine you ❤️'d right back</span></div></div>
+    <div class="tile"><b>${fmt(TB.me_loved)}</b><span>of ${FAYE}'s texts ${ME} loved ❤️</span></div>
+    <div class="tile"><b>${fmt(TB.faye_loved)}</b><span>of ${ME}'s texts ${FAYE} loved right back ❤️</span></div></div>
   <div class="sub rise">heart-eyes, both ways 😍</div>`},
 
 {th:5,html:`<div class="eyebrow rise">reply speed (median)</div>
   <div class="row rise" style="align-items:flex-end">
-    <div class="col"><div class="label">you</div><div class="huge" style="font-size:clamp(50px,17vw,80px)">${respFaye}<span class="unit">s</span></div></div>
-    <div class="col" style="text-align:right"><div class="label">me</div><div class="huge" style="font-size:clamp(50px,17vw,80px)">${respMe}<span class="unit">s</span></div></div></div>
-  <div class="sub rise">you fire back in half the time. i'm worth the wait though 😌💗</div>`},
+    <div class="col"><div class="label">${FAYE}</div><div class="huge" style="font-size:clamp(50px,17vw,80px)">${respFaye}<span class="unit">s</span></div></div>
+    <div class="col" style="text-align:right"><div class="label">${ME}</div><div class="huge" style="font-size:clamp(50px,17vw,80px)">${respMe}<span class="unit">s</span></div></div></div>
+  <div class="sub rise">${FAYE} usually fires back first, ${ME} a moment behind. they never leave each other hanging 💗</div>`},
 
-{th:1,html:`<div class="eyebrow rise">what we call each other</div>
-  <div class="row rise"><div class="col"><div class="label">i call you</div>
-    <div class="display" style="font-size:21px;line-height:1.6">${DATA.nick.me.map((n,i)=>(i===0?'🎃 ':'')+n).join('<br>')}</div></div>
-    <div class="col"><div class="label">you call me</div>
-    <div class="display" style="font-size:21px;line-height:1.6">${DATA.nick.faye.map(n=>(n==='king'?'👑 ':'')+n).join('<br>')}</div></div></div>
+{th:1,html:`<div class="eyebrow rise">what they call each other</div>
+  <div class="row rise"><div class="col"><div class="label">${ME} calls ${FAYE}</div>
+    <div class="display" style="font-size:19px;line-height:1.6">${DATA.nick.me.map((n,i)=>(i===0?'🎃 ':'')+n).join('<br>')}</div></div>
+    <div class="col"><div class="label">${FAYE} calls ${ME}</div>
+    <div class="display" style="font-size:19px;line-height:1.6">${DATA.nick.faye.map(n=>(n==='king'?'👑 ':'')+n).join('<br>')}</div></div></div>
   <div class="sub rise">"<b>${DATA.nick.top}</b>" is the undisputed house favorite 🎃</div>`},
 
 {th:6,html:`<div class="bgwrap" data-f="🩷💕💗"></div>
-  <div class="eyebrow rise">and the big one…</div>
+  <div class="eyebrow rise">and the big one</div>
   <div class="huge rise"><span data-c="${L.total_ily}">0</span></div>
   <div class="big rise accent">"i love you"s</div>
-  <div class="sub rise"><b>i said it first</b> 😎 — and i'd say it ${fmt(L.total_ily)} more times. i love you, ${FAYE} 🩷</div>`},
+  <div class="sub rise"><b>${ME} said it first</b> 😎, and there have been <b>${fmt(L.total_ily)}</b> in total since. ${ME} loves ${FAYE}, endlessly 🩷</div>`},
 ];
 
-/* ---------- quizzes (hard but fun 😏) ---------- */
+/* ---------- quizzes: deep facts Faye never saw in the slides (playful, never mean) ---------- */
+const sebEmoji = (DATA.me.top_emojis.find(e=>!['😭','😂','🤣','😅','🥲','😆','😹'].includes(e[0]))||['✌️'])[0];
 QUIZ=[
- {q:`warm-up 😌 — who texts more, me or you?`, e:"💬",
-  opts:[["me",0],["you",0],["it's basically a tie",1]],
-  ok:`a near-perfect tie — 52/48, me barely ahead. we're equally down bad 🤝`,
-  no:`nope! it's a near-tie — 52/48, me <i>barely</i> ahead 😏`},
- {q:`how many texts have we sent each other… total?`, e:"📱",
-  opts:[["9,400",0],["14,800",0],[fmt(T.messages),1],["31,200",0]],
-  ok:`${fmt(T.messages)}. we have zero chill and i love it 😭`,
-  no:`it's ${fmt(T.messages)}!! we are not okay (affectionate) 😭`},
- {q:`what's my #1 emoji when i text you?`, e:"🤔",
-  opts:[["❤️",0],["😂",0],["😭",1],["🤣",0]],
-  ok:`😭 — you make me feel things, what can i say.`,
-  no:`it's 😭 — you make me feel things lol.`},
- {q:`how many times have we said "i love you"? 💗`, e:"💗",
-  opts:[["58",0],["99",0],[fmt(L.total_ily),1],["210",0]],
-  ok:`${fmt(L.total_ily)}. and counting, forever 🥹`,
-  no:`${fmt(L.total_ily)} times!! were you not counting?? 😤💗`},
- {q:`be honest… who said "i love you" FIRST?`, e:"😳",
-  opts:[["you",0],["me",1],["at the same time",0]],
-  ok:`ME. i was brave first, ${fmtDate(L.first_ily[0])} 😎`,
-  no:`it was ME 😌 ${fmtDate(L.first_ily[0])}. i was brave first.`},
- {q:`our longest streak — days in a row, no skips?`, e:"🔥",
-  opts:[["31",0],["52",0],[`${t.best_streak}`,1],["96",0]],
-  ok:`${t.best_streak} days 🔥 and the streak is STILL alive.`,
-  no:`${t.best_streak} days 🔥 (and it's still going right now btw)`},
- {q:`our most unhinged day — texts in ONE day?`, e:"😅",
-  opts:[["228",0],["390",0],[`${t.busiest_day_n}`,1],["705",0]],
-  ok:`${t.busiest_day_n} in a single day. iconic behavior 📱`,
-  no:`${t.busiest_day_n}!! in ONE day. unhinged (lovingly) 😅`},
- {q:`this better be easy 😤 — my #1 nickname for you?`, e:"🎃",
-  opts:[["babe",0],["cutie",0],[DATA.nick.top,1],["princess",0]],
-  ok:`${DATA.nick.top.toUpperCase()} 🎃 — correct, obviously.`,
-  no:`it's ${DATA.nick.top.toUpperCase()} 🎃??? we're gonna have words.`},
+ {q:`who usually sends the very first text of the day?`, e:"🌅",
+  opts:[[FAYE,0],[ME,1],["they alternate evenly",0]],
+  ok:`${ME} does! first text on ${DATA.deep.first_of_day.me} days to ${FAYE}'s ${DATA.deep.first_of_day.faye}. always reaching out 🥰`,
+  no:`it's ${ME}, first text on ${DATA.deep.first_of_day.me} days to ${FAYE}'s ${DATA.deep.first_of_day.faye} 🥰`},
+ {q:`who tends to get the last word at night?`, e:"🌙",
+  opts:[[ME,0],[FAYE,1],["a perfect tie",0]],
+  ok:`${FAYE} does, the last goodnight on ${DATA.deep.last_of_day.faye} nights to ${ME}'s ${DATA.deep.last_of_day.me} 😴💗`,
+  no:`it's ${FAYE}, last word on ${DATA.deep.last_of_day.faye} nights to ${ME}'s ${DATA.deep.last_of_day.me} 💗`},
+ {q:`what time of day are they most likely texting?`, e:"🕖",
+  opts:[["around noon",0],["5 PM",0],["7 PM",1],["midnight",0]],
+  ok:`7 PM is their hour, ${fmt(DATA.deep.busiest_hour.count)} texts in that hour alone 🌆`,
+  no:`it's 7 PM, ${fmt(DATA.deep.busiest_hour.count)} texts land right then 🌆`},
+ {q:`which day of the week do they text the most?`, e:"📆",
+  opts:[["Monday",0],["Wednesday",1],["Friday",0],["Sunday",0]],
+  ok:`Wednesdays! who knew midweek was their thing 📆`,
+  no:`it's Wednesday, peak midweek chatting 📆`},
+ {q:`who asks more questions in the chat?`, e:"🤔",
+  opts:[[ME,0],[FAYE,1],["about the same",0]],
+  ok:`${FAYE}, the curious one, ${fmt(DATA.questions.faye)} questions to ${ME}'s ${fmt(DATA.questions.me)} 🤔`,
+  no:`it's ${FAYE}, ${fmt(DATA.questions.faye)} questions to ${ME}'s ${fmt(DATA.questions.me)} 🤔`},
+ {q:`longest they've ever gone without a single text?`, e:"⏳",
+  opts:[["1 day",0],["3 days",0],["about 10 days",1],["a whole month",0]],
+  ok:`about 10 days, way back in Sept 2025. hasn't happened since 💞`,
+  no:`about 10 days, all the way back in Sept 2025. never again 💞`},
+ {q:`besides the laughing one, ${ME}'s most-used emoji?`, e:"✨",
+  opts:[["🥺",0],[sebEmoji,1],["🔥",0],["😎",0]],
+  ok:`${sebEmoji} is ${ME}'s little signature 😌`,
+  no:`it's ${sebEmoji}, ${ME}'s signature emoji 😌`},
+ {q:`on average, how many words is one of their texts?`, e:"💬",
+  opts:[["about 2",0],["about 5",1],["about 12",0],["about 25",0]],
+  ok:`about 5 words each. short, sweet, and constant 💬`,
+  no:`about 5 words. quick little bursts all day 💬`},
 ];
 GUESS=[
- {q:`guess how many emojis YOU'VE sent me 💕`, e:"💖", min:0, max:8000, step:100, ans:DATA.faye.emoji_total,
-  rev:n=>`it's <b>${fmt(DATA.faye.emoji_total)}</b>! you were ${fmt(Math.abs(n-DATA.faye.emoji_total))} off 🥰`},
- {q:`guess how many times we've made each other laugh 😂`, e:"😹", min:0, max:4000, step:50, ans:DATA.laughs.total,
-  rev:n=>`it's <b>${fmt(DATA.laughs.total)}</b> laughs! ${Math.abs(n-DATA.laughs.total)<300?'so close!! 😍':'you were '+fmt(Math.abs(n-DATA.laughs.total))+' off 😜'}`},
+ {q:`guess how many photos &amp; videos they've shared 📸`, e:"📸", min:0, max:4000, step:50, ans:DATA.totals.images,
+  rev:n=>`it's <b>${fmt(DATA.totals.images)}</b>! ${Math.abs(n-DATA.totals.images)<300?'so close 😍':'off by '+fmt(Math.abs(n-DATA.totals.images))+' 🥰'}`},
+ {q:`guess how many texts fly between midnight and 5 AM 🌙`, e:"🌙", min:0, max:1500, step:20, ans:DATA.time.night_owl_msgs,
+  rev:n=>`it's <b>${fmt(DATA.time.night_owl_msgs)}</b> late-night texts 🌙 ${Math.abs(n-DATA.time.night_owl_msgs)<150?'nailed it 😍':'off by '+fmt(Math.abs(n-DATA.time.night_owl_msgs))+' 😜'}`},
 ];
 
 /* ====================== build scene list ====================== */
 SCENES=[];
 STAT_SCENES.forEach((s,i)=>SCENES.push({type:'slide',th:s.th,html:s.html}));
 SCENES.push({type:'slide',th:2,html:`<div class="bgwrap" data-f="❓💗"></div>
-  <div class="eyebrow rise">okay… pop quiz 😏</div>
-  <div class="names rise" style="font-size:clamp(32px,10vw,46px)">how well<br>do you know us?</div>
-  <div class="sub rise">${QUIZ.length} questions + ${GUESS.length} guesses. i made them hard on purpose 😈 no pressure, cutie.</div>
+  <div class="eyebrow rise">okay, pop quiz 😏</div>
+  <div class="names rise" style="font-size:clamp(30px,9vw,44px)">a quiz<br>for ${FAYE} 💗</div>
+  <div class="sub rise">${QUIZ.length} questions + ${GUESS.length} guesses about little things hiding in the chat. things ${FAYE} might not even know yet 👀</div>
   <div class="tiny rise">tap to start →</div>`});
 QUIZ.forEach((qz,i)=>SCENES.push({type:'quiz',th:[1,3,4,5,1,3,4,5][i%8],qz,n:i+1}));
 GUESS.forEach((g,i)=>SCENES.push({type:'guess',th:i%2?5:3,g,n:QUIZ.length+i+1}));
@@ -380,14 +381,14 @@ function renderScene(s,idx){
   if(s.type==='slide'){ d.innerHTML=s.html; }
   else if(s.type==='quiz'){ d.innerHTML=quizHTML(s.qz,s.n); }
   else if(s.type==='guess'){ d.innerHTML=guessHTML(s.g,s.n); }
-  else if(s.type==='score'){ d.dataset.dyn='score'; d.innerHTML=`<div class="bgwrap" data-f="🩷✨"></div><div class="eyebrow rise">your score…</div><div class="huge rise" id="scoreNum">–</div><div class="big rise accent" id="scoreOf">/ ${QUIZ.length}</div><div class="sub rise" id="scoreMsg"></div><div class="tiny rise">tap for one last thing →</div>`; }
+  else if(s.type==='score'){ d.dataset.dyn='score'; d.innerHTML=`<div class="bgwrap" data-f="🩷✨"></div><div class="eyebrow rise">${FAYE}'s score</div><div class="huge rise" id="scoreNum">0</div><div class="big rise accent" id="scoreOf">out of ${QUIZ.length}</div><div class="sub rise" id="scoreMsg"></div><div class="tiny rise">tap for one last thing →</div>`; }
   else if(s.type==='finale'){ d.innerHTML=`<div class="bgwrap" id="confetti"></div>
      <div class="eyebrow rise">one last thing 🩷</div>
-     <div class="hand rise" style="font-size:clamp(30px,8.5vw,40px);line-height:1.2">${fmt(T.messages)} texts later<br>and i'm still obsessed<br>with you, ${FAYE}.</div>
-     <div class="sub rise">happy us 🩷 here's to the next ${fmt(T.messages)}.</div>
+     <div class="hand rise" style="font-size:clamp(29px,8.2vw,38px);line-height:1.2">${fmt(T.messages)} texts later,<br>${ME} is still<br>obsessed with ${FAYE}.</div>
+     <div class="sub rise">here's to ${FAYE} &amp; ${ME}, and the next ${fmt(T.messages)} 🩷</div>
      <div class="rise" style="width:100%;margin-top:6px"><div class="lovemeter"><i id="lm"></i></div>
-       <div class="tiny" style="margin-top:8px" id="lmh">press & hold the heart 👇</div></div>
-     <button class="btn rise" id="loveBtn" style="margin-top:8px">🩷 hold me 🩷</button>
+       <div class="tiny" style="margin-top:8px" id="lmh">press and hold the heart 👇</div></div>
+     <button class="btn rise" id="loveBtn" style="margin-top:8px">🩷 hold the heart 🩷</button>
      <button class="btn ghost rise" id="replay" style="margin-top:4px">replay from the top ↺</button>`; }
   return d;
 }
@@ -440,18 +441,18 @@ function go(i){
   if((s.type==='quiz'||s.type==='guess') && answered[cur]) hintEl.style.display="";
 }
 function canAdvance(){ const s=SCENES[cur]; if(s.type==='quiz'||s.type==='guess') return !!answered[cur]; return true; }
-function nudge(){ hintEl.textContent="answer first, cutie 😜"; hintEl.style.display=""; setTimeout(()=>{hintEl.textContent="tap to continue 🩷";},1400); }
+function nudge(){ hintEl.textContent="pick an answer first 😊"; hintEl.style.display=""; setTimeout(()=>{hintEl.textContent="tap to continue 🩷";},1400); }
 
 function showScore(node){
   const num=node.querySelector("#scoreNum"), msg=node.querySelector("#scoreMsg");
   let n=0; const t0=performance.now(),tg=score;
   (function step(now){ const p=Math.min(1,(now-t0)/900); num.textContent=Math.round(tg*p);
     if(p<1)requestAnimationFrame(step); else num.textContent=tg; })();
-  const r = score>=8?"soulmate. certified. 💍 you know us by heart."
-          : score>=6?"okay you DO pay attention 🥰 i'm impressed."
-          : score>=4?"not bad… but we've got some studying to do 😏📚"
-          : score>=2?"Faye. FAYE. do you even know me?? 😭 (jk i love you)"
-          : "...we're breaking up 💀 (kidding. but WOW. 🩷)";
+  const r = score>=8?`${FAYE} knows ${ME} by heart 💍 soulmate behavior.`
+          : score>=6?`${FAYE} really pays attention 🥰 so sweet.`
+          : score>=4?`a lovely score 💗 and now ${FAYE} knows even more.`
+          : score>=2?`${FAYE} just learned a bunch of new things 🥰 that was the whole point.`
+          : `every answer was a brand new little fact to keep 💗 ${ME} loves ${FAYE}.`;
   msg.innerHTML=r;
 }
 
@@ -521,7 +522,7 @@ function start(){ rebuild(); go(0); }
 const gate=document.getElementById("gate"), gpass=document.getElementById("gpass"),
       gbtn=document.getElementById("gbtn"), gmsg=document.getElementById("gmsg");
 let tries=0, busy=false;
-// turn whatever date format she types into MMDDYY candidates — the real date is NEVER in this file;
+// turn whatever date format she types into MMDDYY candidates. the real date is NEVER in this file;
 // AES-GCM's auth tag is what confirms the right one.
 function candidates(d){
   const c=new Set();
@@ -557,8 +558,8 @@ function fail(){
     : "that's not it 🥺 try again · MM/DD/YY";
 }
 gbtn.addEventListener("click",tryUnlock);
+gpass.addEventListener("change",tryUnlock);   // picking the date auto-unlocks
 gpass.addEventListener("keydown",e=>{ if(e.key==="Enter")tryUnlock(); });
-setTimeout(()=>gpass.focus(),400);
 </script>
 </body>
 </html>
