@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no, maximum-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#ff5fa2">
+<title>💌</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Quicksand:wght@500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  *{ margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body{ height:100%; }
+  body{
+    font-family:"Quicksand",-apple-system,system-ui,sans-serif;
+    background:#ffd9e8; color:#5e1133; overflow:hidden;
+    min-height:100dvh; display:grid; place-items:center;
+  }
+  .display{ font-family:"Fredoka",sans-serif; }
+  .hand{ font-family:"Caveat",cursive; }
+
+  /* ---------- app shell (mobile-first, phone frame on desktop) ---------- */
+  #app{
+    position:relative; width:100vw; height:100dvh; overflow:hidden; background:#ffe3ef;
+    touch-action:none; user-select:none;
+  }
+  @media (min-width:540px){
+    body{ background:radial-gradient(130% 120% at 50% 0%, #ffb3d9 0%, #ff8fc7 45%, #d6176b 100%); }
+    #app{ width:430px; height:min(920px,94dvh); border-radius:46px; overflow:hidden;
+          box-shadow:0 40px 110px -25px rgba(150,10,70,.65), 0 0 0 11px #2a0a1c, 0 0 0 13px #4a1330;
+          touch-action:auto; }
+    #gate{ border-radius:46px; }
+  }
+
+  /* ---------- scenes ---------- */
+  #stage{ position:absolute; inset:0; }
+  .scene{
+    position:absolute; inset:0; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; text-align:center;
+    gap:14px; padding:74px 26px 96px; overflow-y:auto; overflow-x:hidden;
+    background:var(--bg); color:var(--fg,#5e1133);
+    opacity:0; visibility:hidden; transform:scale(1.02);
+    transition:opacity .5s ease, transform .5s ease;
+  }
+  .scene.active{ opacity:1; visibility:visible; transform:none; }
+  .scene .bgwrap{ position:fixed; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .scene > *:not(.bgwrap){ position:relative; z-index:1; max-width:380px; width:100%; }
+
+  .eyebrow{ font-size:13px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; opacity:.72; }
+  .headline{ font-size:clamp(26px,7.4vw,32px); font-weight:700; line-height:1.12; }
+  .big{ font-size:clamp(38px,12vw,56px); font-weight:700; line-height:1.04; }
+  .huge{ font-size:clamp(72px,24vw,128px); font-weight:700; line-height:.9; letter-spacing:-.02em; }
+  .sub{ font-size:clamp(15px,4.3vw,18px); font-weight:600; line-height:1.45; opacity:.92; }
+  .tiny{ font-size:12.5px; font-weight:700; opacity:.6; letter-spacing:.03em; }
+  .accent{ color:var(--accent,#ff177d); }
+  .unit{ font-size:.4em; font-weight:700; opacity:.8; }
+
+  /* entrance pop */
+  .scene.active .rise{ animation:rise .6s cubic-bezier(.2,.7,.2,1) both; }
+  .scene.active .rise:nth-child(2){animation-delay:.05s}.scene.active .rise:nth-child(3){animation-delay:.11s}
+  .scene.active .rise:nth-child(4){animation-delay:.17s}.scene.active .rise:nth-child(5){animation-delay:.23s}
+  .scene.active .rise:nth-child(6){animation-delay:.29s}.scene.active .rise:nth-child(7){animation-delay:.35s}
+  @keyframes rise{ from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:none} }
+  .scene.active .pop{ animation:pop .7s cubic-bezier(.18,.9,.3,1.4) both; animation-delay:.1s; }
+  @keyframes pop{ from{opacity:0;transform:scale(.5)} to{opacity:1;transform:scale(1)} }
+
+  /* progress */
+  #bar{ position:absolute; top:0; left:0; right:0; height:6px; background:rgba(255,255,255,.4); z-index:40; }
+  #bar > i{ display:block; height:100%; width:0; border-radius:0 6px 6px 0;
+            background:linear-gradient(90deg,#ff177d,#ff7eb3); transition:width .5s ease; }
+  #counter{ position:absolute; top:14px; right:18px; z-index:40; font-size:12px; font-weight:700;
+            color:#fff; opacity:.85; background:rgba(214,23,107,.35); padding:3px 10px; border-radius:20px;
+            backdrop-filter:blur(4px); }
+
+  /* hint + nav */
+  .hint{ position:absolute; bottom:30px; left:0; right:0; text-align:center; z-index:30;
+         font-size:13.5px; font-weight:700; opacity:.7; animation:bob 1.7s ease-in-out infinite; }
+  @keyframes bob{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(-5px);opacity:.85}}
+  .navhint{ position:absolute; bottom:0; width:46%; top:60px; z-index:5; }
+
+  /* buttons / pills */
+  .btn{ font-family:"Fredoka",sans-serif; font-weight:600; font-size:18px; border:none; cursor:pointer;
+        background:#fff; color:#ff177d; padding:15px 22px; border-radius:30px; width:100%;
+        box-shadow:0 8px 22px -6px rgba(150,10,70,.4); transition:transform .12s ease, box-shadow .2s; }
+  .btn:active{ transform:scale(.96); }
+  .btn.ghost{ background:rgba(255,255,255,.22); color:var(--fg,#fff); box-shadow:none;
+              border:2px solid rgba(255,255,255,.55); }
+
+  /* quiz options */
+  .opts{ display:flex; flex-direction:column; gap:11px; width:100%; margin-top:6px; }
+  .opt{ font-family:"Quicksand",sans-serif; font-weight:700; font-size:17px; cursor:pointer;
+        background:rgba(255,255,255,.9); color:#7a1840; padding:15px 18px; border-radius:20px;
+        border:2.5px solid transparent; text-align:left; transition:transform .12s, background .2s, border-color .2s;
+        display:flex; align-items:center; gap:10px; }
+  .opt:active{ transform:scale(.97); }
+  .opt.correct{ background:#34c759; color:#fff; border-color:#fff; }
+  .opt.wrong{ background:#ff5b7e; color:#fff; border-color:#fff; }
+  .opt.dim{ opacity:.5; }
+  .opt .mk{ margin-left:auto; font-size:20px; }
+  .result{ margin-top:14px; font-weight:700; font-size:16px; line-height:1.4; min-height:0;
+           opacity:0; transform:translateY(8px); transition:.4s; }
+  .result.show{ opacity:1; transform:none; }
+
+  /* slider guess */
+  .slider{ width:100%; -webkit-appearance:none; appearance:none; height:14px; border-radius:10px;
+           background:rgba(255,255,255,.55); outline:none; margin:10px 0; }
+  .slider::-webkit-slider-thumb{ -webkit-appearance:none; width:34px; height:34px; border-radius:50%;
+           background:#fff; box-shadow:0 4px 12px rgba(150,10,70,.5); cursor:pointer; border:3px solid #ff177d; }
+  .slider::-moz-range-thumb{ width:34px; height:34px; border-radius:50%; background:#fff; border:3px solid #ff177d; cursor:pointer; }
+  .gval{ font-family:"Fredoka",sans-serif; font-weight:700; font-size:clamp(40px,13vw,60px); }
+
+  /* chips / charts */
+  .splitbar{ width:100%; height:50px; border-radius:16px; overflow:hidden; display:flex; }
+  .splitbar > div{ display:flex; align-items:center; justify-content:center; font-weight:700; font-size:15px;
+                   width:0; transition:width 1.1s cubic-bezier(.2,.7,.2,1); white-space:nowrap; font-family:"Fredoka",sans-serif;}
+  .row{ display:flex; gap:12px; width:100%; }
+  .col{ flex:1; } .label{ font-size:13px; font-weight:700; opacity:.78; margin-bottom:3px; }
+  .emojirow{ display:flex; flex-wrap:wrap; gap:10px 16px; justify-content:center; font-size:34px; }
+  .emojirow span{ display:inline-flex; flex-direction:column; align-items:center; line-height:1; }
+  .emojirow small{ font-size:12px; font-weight:700; opacity:.8; margin-top:5px; font-family:"Quicksand"; }
+  .chart{ display:flex; align-items:flex-end; gap:4px; width:100%; height:130px; }
+  .chart .bar{ flex:1; background:rgba(255,255,255,.45); border-radius:5px 5px 0 0; height:0;
+               transition:height .9s cubic-bezier(.2,.7,.2,1); }
+  .chart .bar.hot{ background:#fff; }
+  .chartlabels{ display:flex; justify-content:space-between; width:100%; font-size:10px; font-weight:700; opacity:.7; margin-top:6px; }
+  .tiles{ display:flex; flex-direction:column; gap:11px; width:100%; }
+  .tile{ background:rgba(255,255,255,.85); border-radius:18px; padding:14px 16px; display:flex; align-items:baseline; gap:10px; text-align:left; color:#7a1840; }
+  .tile b{ font-family:"Fredoka"; font-size:28px; } .tile span{ font-size:13.5px; font-weight:700; }
+
+  .names{ font-family:"Fredoka"; font-size:clamp(40px,12vw,58px); font-weight:700; line-height:1.0; }
+  .hb{ display:inline-block; animation:hb 1.3s ease-in-out infinite; } @keyframes hb{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+
+  /* floaties */
+  .floaty{ position:absolute; will-change:transform; }
+  @keyframes floatUp{ 0%{transform:translateY(30px) scale(.7);opacity:0}15%{opacity:.85}100%{transform:translateY(-115dvh) scale(1.1);opacity:0} }
+  @keyframes confetti{ 0%{transform:translateY(-10%) rotate(0);opacity:0}10%{opacity:1}100%{transform:translateY(115dvh) rotate(380deg);opacity:0} }
+
+  /* ---------- gate ---------- */
+  #gate{ position:absolute; inset:0; z-index:100; display:flex; flex-direction:column;
+         align-items:center; justify-content:center; gap:16px; padding:34px 28px; text-align:center;
+         background:radial-gradient(120% 120% at 50% 10%, #ff9ec7 0%, #ff5fa2 55%, #d6176b 100%); color:#fff; }
+  #gate .lockheart{ font-size:64px; animation:hb 1.4s ease-in-out infinite; }
+  #gate input{ font-family:"Fredoka"; font-size:24px; text-align:center; width:100%; max-width:280px;
+        padding:14px 16px; border-radius:18px; border:none; outline:none; color:#7a1840;
+        letter-spacing:.12em; box-shadow:0 10px 26px -8px rgba(120,0,50,.5); }
+  #gate input.shake{ animation:shake .45s; }
+  @keyframes shake{ 0%,100%{transform:translateX(0)}20%{transform:translateX(-9px)}40%{transform:translateX(9px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)} }
+  #gate .gmsg{ min-height:20px; font-weight:700; font-size:14.5px; opacity:.95; }
+  #gate.hidden{ opacity:0; visibility:hidden; transition:opacity .6s ease; }
+
+  .lovemeter{ width:100%; height:26px; border-radius:16px; background:rgba(255,255,255,.4); overflow:hidden; }
+  .lovemeter > i{ display:block; height:100%; width:0; background:linear-gradient(90deg,#fff,#ffd1e8); }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="bar"><i></i></div>
+  <div id="counter"></div>
+  <div id="stage"></div>
+  <div class="hint" id="hint">tap to continue 🩷</div>
+
+  <div id="gate">
+    <div class="lockheart">💌</div>
+    <div class="display" style="font-size:30px;font-weight:700">hi, you 🩷</div>
+    <div class="sub" style="max-width:300px">I made you a little something.<br>Enter our date to unlock it 🔒</div>
+    <input id="gpass" inputmode="numeric" autocomplete="off" placeholder="MM / DD / YY" />
+    <button class="btn" id="gbtn" style="max-width:280px">Unlock 💗</button>
+    <div class="gmsg" id="gmsg">hint: our anniversary 🩷 &nbsp;·&nbsp; MM/DD/YY</div>
+  </div>
+</div>
+
+<script>
+const ENC = {"s":"NZHD5emTvWyRGn3XPgU6Fg==","i":"HhW1dlpilZJxIAR0","c":"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","it":150000};
+let ME="me", FAYE="you";  // real names live in the encrypted payload
+let DATA=null, T,t,L,C,TB,Q,mePct,fayePct,pages,emojiMult,respMe,respFaye, STAT_SCENES, QUIZ, GUESS, SCENES=[];
+
+/* ---------- decrypt (everything ships as ciphertext; her date is the key) ---------- */
+function b64ToBuf(b){ const s=atob(b),u=new Uint8Array(s.length); for(let i=0;i<s.length;i++)u[i]=s.charCodeAt(i); return u; }
+async function decryptPayload(pw){
+  const salt=b64ToBuf(ENC.s), iv=b64ToBuf(ENC.i), ct=b64ToBuf(ENC.c);
+  const base=await crypto.subtle.importKey("raw", new TextEncoder().encode(pw), "PBKDF2", false, ["deriveKey"]);
+  const key=await crypto.subtle.deriveKey({name:"PBKDF2", salt, iterations:ENC.it, hash:"SHA-256"}, base,
+    {name:"AES-GCM", length:256}, false, ["decrypt"]);
+  const pt=await crypto.subtle.decrypt({name:"AES-GCM", iv}, key, ct);
+  return JSON.parse(new TextDecoder().decode(pt));
+}
+
+/* ---------- helpers ---------- */
+const fmt = n => Math.round(n).toLocaleString("en-US");
+const MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const fmtDate=iso=>{const[y,m,d]=iso.split("-").map(Number);return `${MON[m-1]} ${d}, ${y}`;};
+const fmtMonth=ym=>{const[,m]=ym.split("-").map(Number);return MON[m-1];};
+const pct=(a,b)=>Math.round(100*a/(a+b));
+function deriveVars(){
+  ME=DATA.names.me; FAYE=DATA.names.faye;
+  T=DATA.totals; t=DATA.time; L=DATA.love; C=DATA.cadence; TB=DATA.tapbacks; Q=DATA.questions;
+  mePct=pct(T.me,T.faye); fayePct=100-mePct;
+  pages=Math.round(T.words_total/250/10)*10;
+  emojiMult=(DATA.faye.emoji_total/DATA.me.emoji_total).toFixed(1);
+  respMe=Math.round(C.median_resp_me_s); respFaye=Math.round(C.median_resp_faye_s);
+}
+
+/* ---------- pink themes ---------- */
+const TH=[
+ {bg:"radial-gradient(120% 120% at 50% 0%, #ffb3d9, #ff5fa2 60%, #d6176b)", fg:"#fff", accent:"#fff0f6"},   //0
+ {bg:"linear-gradient(160deg,#fff0f6,#ffd1e8 60%,#ffb0d4)", fg:"#8a1248", accent:"#ff177d"},                 //1 light
+ {bg:"linear-gradient(160deg,#ff9ec7,#ff6fae 60%,#ff3d8a)", fg:"#fff", accent:"#fff0a6"},                    //2
+ {bg:"linear-gradient(160deg,#f5c4ff,#ff9ed6 55%,#ff6fae)", fg:"#5e1060", accent:"#ff177d"},                 //3 lavender
+ {bg:"linear-gradient(160deg,#ffd9c2,#ffaecb 55%,#ff7eb3)", fg:"#7a1840", accent:"#ff177d"},                 //4 peach
+ {bg:"linear-gradient(160deg,#fff0f6,#ffc2e0 60%,#ff8fc7)", fg:"#8a1248", accent:"#ff177d"},                 //5
+ {bg:"radial-gradient(120% 120% at 50% 20%, #ff7eb3, #ff2d87 60%, #b3155c)", fg:"#fff", accent:"#fff0a6"},   //6
+];
+
+/* ---------- builders ---------- */
+function chips(list,n){ return `<div class="emojirow rise">`+list.slice(0,n).map(e=>`<span>${e[0]}<small>${fmt(e[1])}</small></span>`).join("")+`</div>`; }
+function months(){ const max=Math.max(...t.by_month.map(m=>m[1]));
+  return `<div class="chart">`+t.by_month.map(m=>`<div class="bar${m[1]===max?' hot':''}" data-h="${(m[1]/max*100).toFixed(1)}"></div>`).join("")+`</div>
+  <div class="chartlabels">`+t.by_month.map(m=>`<span>${fmtMonth(m[0])}</span>`).join("")+`</div>`; }
+
+/* ====================== SCENES (assembled after decrypt) ====================== */
+function buildContent(){
+deriveVars();
+STAT_SCENES=[
+{th:0,html:`<div class="bgwrap" data-f="🩷💕✨🎀"></div>
+  <div class="eyebrow rise">just for you</div>
+  <div class="names rise">us,<br>wrapped <span class="hb">🩷</span></div>
+  <div class="hand rise" style="font-size:30px;line-height:1.1;margin-top:6px">${fmtMonth(DATA.meta.first_date.slice(0,7))} ’${DATA.meta.first_date.slice(2,4)} → ${fmtMonth(DATA.meta.last_date.slice(0,7))} ’${DATA.meta.last_date.slice(2,4)}</div>
+  <div class="sub rise" style="margin-top:8px">everything we said to each other, by the numbers 💌</div>
+  <div class="tiny rise">tap the right side to keep going →</div>`},
+
+{th:1,html:`<div class="eyebrow rise">since "Hi", we've sent</div>
+  <div class="huge rise"><span data-c="${T.messages}">0</span></div>
+  <div class="big rise accent">texts</div>
+  <div class="sub rise">in <b>${DATA.meta.span_days} days</b> — and we talked on <b>${DATA.meta.active_days}</b> of them. that's <b>${T.avg_per_active_day}</b> a day 😮‍💨</div>`},
+
+{th:2,html:`<div class="eyebrow rise">that's about</div>
+  <div class="huge rise"><span data-c="${T.words_total}">0</span></div>
+  <div class="big rise accent">words 📖</div>
+  <div class="sub rise">basically a <b>${pages}-page novel</b>. we wrote a whole book about us.</div>`},
+
+{th:3,html:`<div class="eyebrow rise">from strangers to… this</div>
+  <div class="headline rise">watch us fall 📈</div>
+  <div class="rise" style="width:100%">${months()}</div>
+  <div class="sub rise"><b>17</b> texts in August → <b>${fmt(t.by_month[t.by_month.length-1][1])}</b> this month. someone caught feelings 🥰</div>`},
+
+{th:4,html:`<div class="eyebrow rise">so… who texts more?</div>
+  <div class="splitbar rise" id="split">
+    <div style="background:#ff177d;color:#fff" data-w="${mePct}">me ${mePct}%</div>
+    <div style="background:#fff;color:#ff177d" data-w="${fayePct}">${fayePct}% you</div>
+  </div>
+  <div class="row rise"><div class="col"><div class="label">me</div><div class="big">${fmt(T.me)}</div></div>
+  <div class="col" style="text-align:right"><div class="label">you</div><div class="big">${fmt(T.faye)}</div></div></div>
+  <div class="sub rise">a near-perfect tie. equally obsessed 🤝💗</div>`},
+
+{th:5,html:`<div class="bgwrap" data-f="💘"></div>
+  <div class="eyebrow rise">it started with one word</div>
+  <div class="huge rise pop">"Hi"</div>
+  <div class="sub rise">you · ${fmtDate(DATA.snippets.first_message.date.split(' ')[0])} · 12:46&nbsp;AM</div>
+  <div class="sub rise">best "hi" of my life, clearly 💘</div>`},
+
+{th:6,html:`<div class="eyebrow rise">our most unhinged day</div>
+  <div class="big rise">${fmtDate(t.busiest_day)}</div>
+  <div class="huge rise accent"><span data-c="${t.busiest_day_n}">0</span></div>
+  <div class="big rise">texts. one day.</div>
+  <div class="sub rise">what were we even doing 😂📱</div>`},
+
+{th:3,html:`<div class="eyebrow rise">our streak 🔥</div>
+  <div class="huge rise"><span data-c="${t.best_streak}">0</span></div>
+  <div class="big rise accent">days in a row</div>
+  <div class="sub rise">not one missed day since <b>${fmtDate(t.streak_range[0])}</b>. and we're <b>still going</b> 🥹</div>`},
+
+{th:2,html:`<div class="eyebrow rise">you're an emoji machine 💅</div>
+  <div class="row rise" style="align-items:flex-end"><div class="col"><div class="label">you</div><div class="big">${fmt(DATA.faye.emoji_total)}</div></div>
+  <div class="col" style="text-align:right"><div class="label">me</div><div class="big">${fmt(DATA.me.emoji_total)}</div></div></div>
+  <div class="sub rise">you out-emoji'd me <b>${emojiMult}×</b>. our favorites:</div>
+  ${chips(L.combined_top_emojis,6)}`},
+
+{th:6,html:`<div class="bgwrap" data-f="😭😂🤣"></div>
+  <div class="eyebrow rise">we crack each other up</div>
+  <div class="huge rise"><span data-c="${DATA.laughs.total}">0</span></div>
+  <div class="big rise accent">shared laughs</div>
+  <div class="sub rise">you laughed at <b>${fmt(TB.faye_laughed)}</b> of my texts — i only managed <b>${fmt(TB.me_laughed)}</b> of yours. you think i'm hilarious 😎</div>`},
+
+{th:4,html:`<div class="bgwrap" data-f="❤️🩷"></div>
+  <div class="eyebrow rise">tap-back love 💞</div>
+  <div class="tiles rise">
+    <div class="tile"><b>${fmt(TB.me_loved)}</b><span>of your texts i hit with ❤️</span></div>
+    <div class="tile"><b>${fmt(TB.faye_loved)}</b><span>of mine you ❤️'d right back</span></div></div>
+  <div class="sub rise">heart-eyes, both ways 😍</div>`},
+
+{th:5,html:`<div class="eyebrow rise">reply speed (median)</div>
+  <div class="row rise" style="align-items:flex-end">
+    <div class="col"><div class="label">you</div><div class="huge" style="font-size:clamp(50px,17vw,80px)">${respFaye}<span class="unit">s</span></div></div>
+    <div class="col" style="text-align:right"><div class="label">me</div><div class="huge" style="font-size:clamp(50px,17vw,80px)">${respMe}<span class="unit">s</span></div></div></div>
+  <div class="sub rise">you fire back in half the time. i'm worth the wait though 😌💗</div>`},
+
+{th:1,html:`<div class="eyebrow rise">what we call each other</div>
+  <div class="row rise"><div class="col"><div class="label">i call you</div>
+    <div class="display" style="font-size:21px;line-height:1.6">${DATA.nick.me.map((n,i)=>(i===0?'🎃 ':'')+n).join('<br>')}</div></div>
+    <div class="col"><div class="label">you call me</div>
+    <div class="display" style="font-size:21px;line-height:1.6">${DATA.nick.faye.map(n=>(n==='king'?'👑 ':'')+n).join('<br>')}</div></div></div>
+  <div class="sub rise">"<b>${DATA.nick.top}</b>" is the undisputed house favorite 🎃</div>`},
+
+{th:6,html:`<div class="bgwrap" data-f="🩷💕💗"></div>
+  <div class="eyebrow rise">and the big one…</div>
+  <div class="huge rise"><span data-c="${L.total_ily}">0</span></div>
+  <div class="big rise accent">"i love you"s</div>
+  <div class="sub rise"><b>i said it first</b> 😎 — and i'd say it ${fmt(L.total_ily)} more times. i love you, ${FAYE} 🩷</div>`},
+];
+
+/* ---------- quizzes (hard but fun 😏) ---------- */
+QUIZ=[
+ {q:`warm-up 😌 — who texts more, me or you?`, e:"💬",
+  opts:[["me",0],["you",0],["it's basically a tie",1]],
+  ok:`a near-perfect tie — 52/48, me barely ahead. we're equally down bad 🤝`,
+  no:`nope! it's a near-tie — 52/48, me <i>barely</i> ahead 😏`},
+ {q:`how many texts have we sent each other… total?`, e:"📱",
+  opts:[["9,400",0],["14,800",0],[fmt(T.messages),1],["31,200",0]],
+  ok:`${fmt(T.messages)}. we have zero chill and i love it 😭`,
+  no:`it's ${fmt(T.messages)}!! we are not okay (affectionate) 😭`},
+ {q:`what's my #1 emoji when i text you?`, e:"🤔",
+  opts:[["❤️",0],["😂",0],["😭",1],["🤣",0]],
+  ok:`😭 — you make me feel things, what can i say.`,
+  no:`it's 😭 — you make me feel things lol.`},
+ {q:`how many times have we said "i love you"? 💗`, e:"💗",
+  opts:[["58",0],["99",0],[fmt(L.total_ily),1],["210",0]],
+  ok:`${fmt(L.total_ily)}. and counting, forever 🥹`,
+  no:`${fmt(L.total_ily)} times!! were you not counting?? 😤💗`},
+ {q:`be honest… who said "i love you" FIRST?`, e:"😳",
+  opts:[["you",0],["me",1],["at the same time",0]],
+  ok:`ME. i was brave first, ${fmtDate(L.first_ily[0])} 😎`,
+  no:`it was ME 😌 ${fmtDate(L.first_ily[0])}. i was brave first.`},
+ {q:`our longest streak — days in a row, no skips?`, e:"🔥",
+  opts:[["31",0],["52",0],[`${t.best_streak}`,1],["96",0]],
+  ok:`${t.best_streak} days 🔥 and the streak is STILL alive.`,
+  no:`${t.best_streak} days 🔥 (and it's still going right now btw)`},
+ {q:`our most unhinged day — texts in ONE day?`, e:"😅",
+  opts:[["228",0],["390",0],[`${t.busiest_day_n}`,1],["705",0]],
+  ok:`${t.busiest_day_n} in a single day. iconic behavior 📱`,
+  no:`${t.busiest_day_n}!! in ONE day. unhinged (lovingly) 😅`},
+ {q:`this better be easy 😤 — my #1 nickname for you?`, e:"🎃",
+  opts:[["babe",0],["cutie",0],[DATA.nick.top,1],["princess",0]],
+  ok:`${DATA.nick.top.toUpperCase()} 🎃 — correct, obviously.`,
+  no:`it's ${DATA.nick.top.toUpperCase()} 🎃??? we're gonna have words.`},
+];
+GUESS=[
+ {q:`guess how many emojis YOU'VE sent me 💕`, e:"💖", min:0, max:8000, step:100, ans:DATA.faye.emoji_total,
+  rev:n=>`it's <b>${fmt(DATA.faye.emoji_total)}</b>! you were ${fmt(Math.abs(n-DATA.faye.emoji_total))} off 🥰`},
+ {q:`guess how many times we've made each other laugh 😂`, e:"😹", min:0, max:4000, step:50, ans:DATA.laughs.total,
+  rev:n=>`it's <b>${fmt(DATA.laughs.total)}</b> laughs! ${Math.abs(n-DATA.laughs.total)<300?'so close!! 😍':'you were '+fmt(Math.abs(n-DATA.laughs.total))+' off 😜'}`},
+];
+
+/* ====================== build scene list ====================== */
+SCENES=[];
+STAT_SCENES.forEach((s,i)=>SCENES.push({type:'slide',th:s.th,html:s.html}));
+SCENES.push({type:'slide',th:2,html:`<div class="bgwrap" data-f="❓💗"></div>
+  <div class="eyebrow rise">okay… pop quiz 😏</div>
+  <div class="names rise" style="font-size:clamp(32px,10vw,46px)">how well<br>do you know us?</div>
+  <div class="sub rise">${QUIZ.length} questions + ${GUESS.length} guesses. i made them hard on purpose 😈 no pressure, cutie.</div>
+  <div class="tiny rise">tap to start →</div>`});
+QUIZ.forEach((qz,i)=>SCENES.push({type:'quiz',th:[1,3,4,5,1,3,4,5][i%8],qz,n:i+1}));
+GUESS.forEach((g,i)=>SCENES.push({type:'guess',th:i%2?5:3,g,n:QUIZ.length+i+1}));
+SCENES.push({type:'score',th:6});
+SCENES.push({type:'finale',th:0});
+total=SCENES.length;
+}
+
+/* ====================== engine ====================== */
+const stage=document.getElementById("stage"), bar=document.querySelector("#bar i"),
+      counter=document.getElementById("counter"), hintEl=document.getElementById("hint");
+let cur=0, nodes=[], answered={}, score=0, total=SCENES.length;
+
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=(i*7+3)%(i+1); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+function renderScene(s,idx){
+  const d=document.createElement("div"); d.className="scene"; const th=TH[s.th];
+  d.style.setProperty("--bg",th.bg); d.style.setProperty("--fg",th.fg); d.style.setProperty("--accent",th.accent);
+  if(s.type==='slide'){ d.innerHTML=s.html; }
+  else if(s.type==='quiz'){ d.innerHTML=quizHTML(s.qz,s.n); }
+  else if(s.type==='guess'){ d.innerHTML=guessHTML(s.g,s.n); }
+  else if(s.type==='score'){ d.dataset.dyn='score'; d.innerHTML=`<div class="bgwrap" data-f="🩷✨"></div><div class="eyebrow rise">your score…</div><div class="huge rise" id="scoreNum">–</div><div class="big rise accent" id="scoreOf">/ ${QUIZ.length}</div><div class="sub rise" id="scoreMsg"></div><div class="tiny rise">tap for one last thing →</div>`; }
+  else if(s.type==='finale'){ d.innerHTML=`<div class="bgwrap" id="confetti"></div>
+     <div class="eyebrow rise">one last thing 🩷</div>
+     <div class="hand rise" style="font-size:clamp(30px,8.5vw,40px);line-height:1.2">${fmt(T.messages)} texts later<br>and i'm still obsessed<br>with you, ${FAYE}.</div>
+     <div class="sub rise">happy us 🩷 here's to the next ${fmt(T.messages)}.</div>
+     <div class="rise" style="width:100%;margin-top:6px"><div class="lovemeter"><i id="lm"></i></div>
+       <div class="tiny" style="margin-top:8px" id="lmh">press & hold the heart 👇</div></div>
+     <button class="btn rise" id="loveBtn" style="margin-top:8px">🩷 hold me 🩷</button>
+     <button class="btn ghost rise" id="replay" style="margin-top:4px">replay from the top ↺</button>`; }
+  return d;
+}
+function quizHTML(qz,n){
+  const opts=shuffle(qz.opts.map((o,i)=>({t:o[0],ok:o[1],i})));
+  return `<div class="eyebrow rise">question ${n} of ${QUIZ.length} ${qz.e}</div>
+    <div class="headline rise">${qz.q}</div>
+    <div class="opts rise">`+opts.map(o=>`<button class="opt" data-ok="${o.ok}"><span>${o.t}</span><span class="mk"></span></button>`).join("")+`</div>
+    <div class="result" data-ok="${qz.ok}" data-no="${qz.no}"></div>
+    <button class="btn rise nextbtn" style="display:none;margin-top:14px">next 🩷</button>`;
+}
+function guessHTML(g,n){
+  const mid=Math.round((g.min+g.max)/2/g.step)*g.step;
+  return `<div class="eyebrow rise">guess ${n} ${g.e}</div>
+    <div class="headline rise">${g.q}</div>
+    <div class="gval rise" id="gv">${fmt(mid)}</div>
+    <input class="slider rise" type="range" min="${g.min}" max="${g.max}" step="${g.step}" value="${mid}" id="gs">
+    <button class="btn rise lockbtn" style="margin-top:8px">lock it in 💗</button>
+    <div class="result"></div>
+    <button class="btn rise nextbtn" style="display:none;margin-top:12px">next 🩷</button>`;
+}
+
+/* floaties */
+function floaties(node){ const w=node.querySelector(".bgwrap[data-f]"); if(!w||w.dataset.done)return; w.dataset.done=1;
+  const set=[...w.dataset.f]; for(let i=0;i<16;i++){ const f=document.createElement("div"); f.className="floaty";
+    f.textContent=set[i%set.length]; f.style.left=(Math.random()*100)+"%"; f.style.fontSize=(18+Math.random()*28)+"px";
+    f.style.animation=`floatUp ${5+Math.random()*5}s linear ${Math.random()*5}s infinite`; w.appendChild(f);} }
+function confetti(node){ const w=node.querySelector("#confetti"); if(!w||w.dataset.done)return; w.dataset.done=1;
+  const set=["🩷","❤️","💕","✨","💖","🎀","💗"]; for(let i=0;i<70;i++){ const f=document.createElement("div"); f.className="floaty";
+    f.textContent=set[i%set.length]; f.style.left=(Math.random()*100)+"%"; f.style.fontSize=(16+Math.random()*26)+"px";
+    f.style.animation=`confetti ${3+Math.random()*3}s linear ${Math.random()*2.5}s infinite`; w.appendChild(f);} }
+function counts(node){ node.querySelectorAll("[data-c]").forEach(el=>{ const tg=+el.dataset.c,t0=performance.now();
+  (function step(now){ const p=Math.min(1,(now-t0)/1150),e=1-Math.pow(1-p,3); el.textContent=fmt(tg*e);
+    if(p<1)requestAnimationFrame(step); else el.textContent=fmt(tg);})(t0); }); }
+function reveal(node){ node.querySelectorAll(".chart .bar").forEach(b=>requestAnimationFrame(()=>b.style.height=b.dataset.h+"%"));
+  const sp=node.querySelector("#split"); if(sp)sp.querySelectorAll("div").forEach(x=>requestAnimationFrame(()=>x.style.width=x.dataset.w+"%")); }
+
+function go(i){
+  if(i<0||i>=total) return;
+  if(i>cur && !canAdvance()) { nudge(); return; }
+  nodes[cur].classList.remove("active"); cur=i;
+  const node=nodes[cur], s=SCENES[cur];
+  node.classList.add("active");
+  bar.style.width=((cur+1)/total*100)+"%";
+  counter.textContent=(cur+1)+" / "+total;
+  counts(node); reveal(node); floaties(node);
+  if(s.type==='score') showScore(node);
+  if(s.type==='finale'){ confetti(node); }
+  hintEl.style.display = (s.type==='slide' || (s.type==='score')) ? "" : "none";
+  if((s.type==='quiz'||s.type==='guess') && answered[cur]) hintEl.style.display="";
+}
+function canAdvance(){ const s=SCENES[cur]; if(s.type==='quiz'||s.type==='guess') return !!answered[cur]; return true; }
+function nudge(){ hintEl.textContent="answer first, cutie 😜"; hintEl.style.display=""; setTimeout(()=>{hintEl.textContent="tap to continue 🩷";},1400); }
+
+function showScore(node){
+  const num=node.querySelector("#scoreNum"), msg=node.querySelector("#scoreMsg");
+  let n=0; const t0=performance.now(),tg=score;
+  (function step(now){ const p=Math.min(1,(now-t0)/900); num.textContent=Math.round(tg*p);
+    if(p<1)requestAnimationFrame(step); else num.textContent=tg; })();
+  const r = score>=8?"soulmate. certified. 💍 you know us by heart."
+          : score>=6?"okay you DO pay attention 🥰 i'm impressed."
+          : score>=4?"not bad… but we've got some studying to do 😏📚"
+          : score>=2?"Faye. FAYE. do you even know me?? 😭 (jk i love you)"
+          : "...we're breaking up 💀 (kidding. but WOW. 🩷)";
+  msg.innerHTML=r;
+}
+
+/* ---------- interactions ---------- */
+stage.addEventListener("click",e=>{
+  const opt=e.target.closest(".opt");
+  if(opt && !opt.closest(".scene").dataset.locked){
+    const sc=opt.closest(".scene"); sc.dataset.locked=1;
+    const ok=opt.dataset.ok==="1";
+    sc.querySelectorAll(".opt").forEach(o=>{ o.classList.add("dim");
+      if(o.dataset.ok==="1"){o.classList.remove("dim");o.classList.add("correct");o.querySelector(".mk").textContent="✓";} });
+    if(!ok){ opt.classList.remove("dim"); opt.classList.add("wrong"); opt.querySelector(".mk").textContent="✗"; }
+    if(ok) score++;
+    const res=sc.querySelector(".result"); res.innerHTML=ok?("yes! "+res.dataset.ok):res.dataset.no; res.classList.add("show");
+    answered[cur]=1; const nb=sc.querySelector(".nextbtn"); if(nb)nb.style.display="";
+    if(ok) burstHearts();
+    return;
+  }
+  if(e.target.closest(".lockbtn")){
+    const sc=e.target.closest(".scene"); sc.dataset.locked=1;
+    const g=SCENES[cur].g, val=+sc.querySelector("#gs").value;
+    const res=sc.querySelector(".result"); res.innerHTML=g.rev(val); res.classList.add("show");
+    sc.querySelector(".lockbtn").style.display="none";
+    sc.querySelector("#gs").disabled=true;
+    answered[cur]=1; sc.querySelector(".nextbtn").style.display=""; burstHearts(); return;
+  }
+  if(e.target.closest(".nextbtn")){ go(cur+1); return; }
+  if(e.target.closest("#replay")){ score=0; answered={};
+    nodes.forEach(n=>{n.dataset.locked="";}); rebuild(); go(0); return; }
+  if(e.target.closest("#loveBtn")||e.target.closest("#gs")||e.target.closest(".slider")) return;
+});
+stage.addEventListener("input",e=>{ if(e.target.id==="gs"){ const sc=e.target.closest(".scene"); sc.querySelector("#gv").textContent=fmt(+e.target.value);} });
+
+/* love meter hold */
+let lmRAF;
+stage.addEventListener("pointerdown",e=>{ if(e.target.closest("#loveBtn")){ const lm=document.querySelector("#lm"),h=document.querySelector("#lmh");
+  let w=0; cancelAnimationFrame(lmRAF); (function f(){ w=Math.min(100,w+2.2); lm.style.width=w+"%";
+    if(w>=100){ h.innerHTML="∞ &nbsp;·&nbsp; that's how much 🩷"; burstHearts(); } else lmRAF=requestAnimationFrame(f); })(); } });
+stage.addEventListener("pointerup",()=>cancelAnimationFrame(lmRAF));
+
+function burstHearts(){ const node=nodes[cur]; const set=["🩷","💕","✨","💖"]; for(let i=0;i<14;i++){ const f=document.createElement("div");
+  f.className="floaty"; f.textContent=set[i%4]; f.style.left=(20+Math.random()*60)+"%"; f.style.bottom="40%"; f.style.fontSize=(18+Math.random()*20)+"px";
+  f.style.animation=`floatUp ${1.6+Math.random()*1.4}s ease-out forwards`; node.appendChild(f); setTimeout(()=>f.remove(),3200); } }
+
+/* swipe + tap-zones for passive slides */
+let dx0=0,dy0=0,dt0=0,moved=false;
+stage.addEventListener("pointerdown",e=>{ dx0=e.clientX;dy0=e.clientY;dt0=performance.now();moved=false; },{passive:true});
+stage.addEventListener("pointermove",e=>{ if(Math.abs(e.clientX-dx0)>12||Math.abs(e.clientY-dy0)>12)moved=true; },{passive:true});
+stage.addEventListener("pointerup",e=>{
+  const dx=e.clientX-dx0, dt=performance.now()-dt0;
+  if(Math.abs(dx)>55 && Math.abs(dx)>Math.abs(e.clientY-dy0)){ dx<0?go(cur+1):go(cur-1); return; }
+  if(dt<240 && !moved){
+    const s=SCENES[cur];
+    if(s.type==='slide'||s.type==='score'||s.type==='finale'){
+      if(e.target.closest("button")) return;
+      const r=stage.getBoundingClientRect();
+      (e.clientX-r.left) < r.width*0.34 ? go(cur-1) : go(cur+1);
+    }
+  }
+});
+document.addEventListener("keydown",e=>{ if(e.key==="ArrowRight"||e.key===" ")go(cur+1); else if(e.key==="ArrowLeft")go(cur-1); });
+
+/* build + gate */
+function rebuild(){ stage.innerHTML=""; nodes=[]; SCENES.forEach((s,i)=>{ const n=renderScene(s,i); stage.appendChild(n); nodes.push(n); }); }
+function start(){ rebuild(); go(0); }
+
+const gate=document.getElementById("gate"), gpass=document.getElementById("gpass"),
+      gbtn=document.getElementById("gbtn"), gmsg=document.getElementById("gmsg");
+let tries=0, busy=false;
+// turn whatever date format she types into MMDDYY candidates — the real date is NEVER in this file;
+// AES-GCM's auth tag is what confirms the right one.
+function candidates(d){
+  const c=new Set();
+  if(d.length===6) c.add(d);                                  // MMDDYY
+  if(d.length===8){
+    c.add(d.slice(0,4)+d.slice(6,8));                         // MMDDYYYY -> MMDDYY
+    c.add(d.slice(4,6)+d.slice(6,8)+d.slice(2,4));            // YYYYMMDD -> MMDDYY
+    c.add(d);
+  }
+  if(d.length>=6) c.add(d.slice(0,6));
+  c.add(d);
+  return [...c].filter(Boolean);
+}
+async function tryUnlock(){
+  if(busy) return;
+  const digits=(gpass.value||"").replace(/\D/g,"");
+  if(digits.length<6){ fail(); return; }
+  busy=true; gmsg.textContent="unlocking… 💗";
+  for(const cand of candidates(digits)){
+    try{
+      DATA = await decryptPayload(cand);     // throws if the date is wrong
+      buildContent(); start();
+      gate.classList.add("hidden"); setTimeout(()=>gate.style.display="none",650);
+      return;
+    }catch(e){ /* wrong candidate, keep trying */ }
+  }
+  busy=false; fail();
+}
+function fail(){
+  tries++; gpass.classList.add("shake"); setTimeout(()=>gpass.classList.remove("shake"),460);
+  gmsg.innerHTML = tries>=3 ? "the date that started us 🩷 · type it MM/DD/YY"
+    : tries>=2 ? "hmm 🥺 think… <i>our</i> date · MM/DD/YY"
+    : "that's not it 🥺 try again · MM/DD/YY";
+}
+gbtn.addEventListener("click",tryUnlock);
+gpass.addEventListener("keydown",e=>{ if(e.key==="Enter")tryUnlock(); });
+setTimeout(()=>gpass.focus(),400);
+</script>
+</body>
+</html>
